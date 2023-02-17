@@ -15,7 +15,7 @@ int main(void)
 	{
 		putchar(L);
 		if (L == 57)
-			L += 32;
+			L += 39;
 	}
 	putchar(10);
 	return (0);
