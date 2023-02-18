@@ -9,12 +9,19 @@
  */
 int main(void)
 {
-	char L;
+	char L1 = 'a';
+	char L2 = 'A';
 
-	for (L = 97; L <= 122; L++)
-		putchar(L);
-	for (L = 65; L <= 90; L++)
-		putchar(L);
+	while (L1 <= 'z')
+	{
+		putchar(L1);
+		L1++;
+	}
+	while (L2 <= 'Z')
+	{
+		putchar(L2);
+		L2++;
+	}
 	putchar(10);
 	return (0);
 }
