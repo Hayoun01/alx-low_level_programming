@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_sig - Checks sign of a num.
+ * print_sign - Checks sign of a num.
  * @n: take number.
  * Return: 1 if is alpha 0 otherwise
  */
