@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _isupper: Check if the char is upper.
+ * _isupper - Check if the char is upper.
  *
  * @c: ASCII value.
  *
