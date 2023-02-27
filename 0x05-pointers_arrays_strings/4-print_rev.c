@@ -16,10 +16,8 @@ void print_rev(char *s)
 	while (*(s + c) != '\0')
 		c += 1;
 
-	while (c >= 0)
-	{
+	for (c += 1; c >= 0; c--)
 		_putchar(*(s + c));
-		c -= 1;
-	}
+
 	_putchar('\n');
 }
