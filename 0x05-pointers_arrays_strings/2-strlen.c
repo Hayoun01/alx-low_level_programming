@@ -5,7 +5,7 @@
  *
  * @s: an array of characters;
  *
- * Return: Nothing
+ * Return: length of the string;
  */
 int _strlen(char *s)
 {
