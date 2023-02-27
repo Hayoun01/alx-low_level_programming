@@ -15,10 +15,10 @@ void puts_half(char *str)
 	while (*(str + c) != '\0')
 		c += 1;
 	if (c % 2 == 0)
-		c /= 2;
+		c = c / 2 + 1;
 	else
 		c = (c - 1) / 2;
-	str += (c + 1);
+	str += c;
 	while (*str != '\0')
 	{
 		_putchar(*str);
