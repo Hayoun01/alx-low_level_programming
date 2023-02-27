@@ -17,7 +17,7 @@ int _atoi(char *s)
 			sign = -1;
 		else if (c >= '0' && c <= '9')
 			result = result * 10 + (c - '0');
-		else if (result != 0)
+		else if (result > 0)
 			break;
 	}
 	return (result * sign);
