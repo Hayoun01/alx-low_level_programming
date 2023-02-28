@@ -7,14 +7,15 @@
  */
 int _atoi(char *s)
 {
-	int sign = 1, result = 0;
+	int sign = 1;
+	unsigned int result = 0;
 	char c;
 
 	while (*s != '\0')
 	{
 		c = *s++;
 		if (c == '-')
-			sign = -1;
+			sign *= -1;
 		else if (c >= '0' && c <= '9')
 			result = result * 10 + (c - '0');
 		else if (result > 0)
