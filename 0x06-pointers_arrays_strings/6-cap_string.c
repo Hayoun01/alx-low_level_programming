@@ -5,7 +5,7 @@
  *
  * @s: a string.
  *
- * Return: 0 if strs are same otherwise return somthing else.
+ * Return: s;
  */
 char *cap_string(char *s)
 {
