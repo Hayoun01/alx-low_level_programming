@@ -14,6 +14,8 @@ char *cap_string(char *s)
 
 	for (i = 0; s[i]; i++)
 	{
+		if (s[i] >= 'a' && s[i] <= 'z' && i == 0)
+			s[i + 1] -= 32;
 		for (j = 0; sym[j]; j++)
 			if (s[i] == sym[j])
 				if (s[i + 1] >= 'a' && s[i + 1] <= 'z')
