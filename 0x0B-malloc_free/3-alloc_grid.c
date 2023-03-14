@@ -19,12 +19,17 @@ int **alloc_grid(int width, int height)
 		for (i = 0; i < height; i++)
 		{
 			list[i] = malloc(sizeof(int) * width);
-			if (list[i])
-				for (j = 0; j < width; j++)
-					list[i][j] = 0;
-			else
+			if (!list[i])
+			{
+				for (i--; i >= 0 ; i--)
+					free(list[i]);
+				free(list);
 				return ('\0');
+			}
 		}
+		for (i = 0; i < height; i++)
+			for (j = 0; j < width; j++)
+				list[i][j] = 0;
 		return (list);
 	}
 	return ('\0');
