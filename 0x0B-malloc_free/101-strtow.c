@@ -34,7 +34,7 @@ int count_words(char *str)
 char **strtow(char *str)
 {
 	char **strings;
-	int words, w = 0;
+	int words, i, w = 0;
 	char *token;
 
 	if (str == NULL || str[0] == '\0')
@@ -55,7 +55,7 @@ char **strtow(char *str)
 		strings[w] = strdup(token);
 		if (strings[w] == NULL)
 		{
-			for (int i = 0; i < w; i++)
+			for (i = 0; i < w; i++)
 				free(strings[i]);
 			free(strings);
 			return (NULL);
