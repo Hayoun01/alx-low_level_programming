@@ -17,12 +17,12 @@ void init_dog(struct dog *d, char *name, float age, char *owner)
 	{
 		d->name = malloc(sizeof(char) * strlen(name));
 		if (!d->name)
-			return (1);
+			exit(1);
 		d->name = name;
 		d->age = age;
 		d->owner = malloc(sizeof(char) * strlen(owner));
 		if (!d->owner)
-			return (1);
+			exit(1);
 		d->owner = owner;
 	}
 }
