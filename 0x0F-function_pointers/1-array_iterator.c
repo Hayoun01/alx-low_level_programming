@@ -1,9 +1,11 @@
 #include "function_pointers.h"
 /**
- * print_name - a function that prints a name.
+ * array_iterator - a function that executes a function given as
+ *		a parameter on each element of an array.
  *
- * @name: string
- * @f: a function that prints
+ * @array: an array of int
+ * @size: size of array
+ * @action: function that prints the array
  *
  * Return: Nothing
  */
