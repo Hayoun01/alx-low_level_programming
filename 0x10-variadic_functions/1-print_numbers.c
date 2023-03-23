@@ -1,11 +1,10 @@
 #include "variadic_functions.h"
 #include <stdio.h>
 /**
- * sum_them_all - a function that returns the sum of all its parameters.
+ * print_numbers - a function that prints numbers, followed by a new line.
  *
+ * @separator: the string to be printed between numbers.
  * @n: number of parameters
- *
- * Return: the sum otherwise 0
  */
 void print_numbers(const char *separator, const unsigned int n, ...)
 {
