@@ -1,52 +1,52 @@
 #include "lists.h"
 #include <stdio.h>
 
-size_t looped_listint_len(const listint_t *head);
+size_t loop_int(const listint_t *head);
 size_t print_listint_safe(const listint_t *head);
 
 /**
- * looped_listint_len - Counts the number of unique nodes
- *                      in a looped listint_t linked list.
+ * loop_int - Counts the number of unique nodes
+ *
  * @head: A pointer to the head of the listint_t to check.
  *
  * Return: If the list is not looped - 0.
  *         Otherwise - the number of unique nodes in the list.
  */
-size_t looped_listint_len(const listint_t *head)
+size_t loop_int(const listint_t *head)
 {
-	const listint_t *tortoise, *hare;
+	const listint_t *rot, *var;
 	size_t nodes = 1;
 
 	if (head == NULL || head->next == NULL)
 		return (0);
 
-	tortoise = head->next;
-	hare = (head->next)->next;
+	rot = head->next;
+	var = (head->next)->next;
 
-	while (hare)
+	while (var)
 	{
-		if (tortoise == hare)
+		if (rot == var)
 		{
-			tortoise = head;
-			while (tortoise != hare)
+			rot = head;
+			while (rot != var)
 			{
 				nodes++;
-				tortoise = tortoise->next;
-				hare = hare->next;
+				rot = rot->next;
+				var = var->next;
 			}
 
-			tortoise = tortoise->next;
-			while (tortoise != hare)
+			rot = rot->next;
+			while (rot != var)
 			{
 				nodes++;
-				tortoise = tortoise->next;
+				rot = rot->next;
 			}
 
 			return (nodes);
 		}
 
-		tortoise = tortoise->next;
-		hare = (hare->next)->next;
+		rot = rot->next;
+		var = (var->next)->next;
 	}
 
 	return (0);
@@ -62,7 +62,7 @@ size_t print_listint_safe(const listint_t *head)
 {
 	size_t nodes, index = 0;
 
-	nodes = looped_listint_len(head);
+	nodes = loop_int(head);
 
 	if (nodes == 0)
 	{
