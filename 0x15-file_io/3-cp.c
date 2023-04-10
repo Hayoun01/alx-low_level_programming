@@ -23,8 +23,7 @@ int main(int argc, char *argv[])
 	file_from = open(argv[1], O_RDONLY);
 	r = read(file_from, buff, BUFSIZE);
 	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	do
-	{
+	do {
 		if (file_from == -1 || r == -1)
 		{
 			dprintf(STDERR_FILENO,
