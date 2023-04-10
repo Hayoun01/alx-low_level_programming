@@ -1,6 +1,6 @@
 #include "main.h"
-void exit_with_error(char *message, int status);
-void cp_file(int src_fd, char *dest_file);
+char *make_buff(char *file);
+void close_file(int f);
 /**
  * main - a program that copies the content of a file to another file.
  *
@@ -9,59 +9,77 @@ void cp_file(int src_fd, char *dest_file);
  *
  * Return: 0 on success, otherwise exit with error code.
  */
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-	int src_fd;
+	int file_from, file_to, r, w;
+	char *buff;
 
 	if (argc != 3)
-		exit_with_error("Usage: cp file_from file_to", 97);
-	src_fd = open(argv[1], O_RDONLY);
-	if (src_fd == -1)
-		exit_with_error("Error: Can't read from file", 98);
-	cp_file(src_fd, argv[2]);
+	{
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
+	}
+	buff = make_buff(argv[1]);
+	file_from = open(argv[1], O_RDONLY);
+	r = read(file_from, buff, BUFSIZE);
+	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	do
+	{
+		if (file_from == -1 || r == -1)
+		{
+			dprintf(STDERR_FILENO,
+					"Error: Can't read from file %s\n", argv[1]);
+			free(buff);
+			exit(98);
+		}
+		w = write(file_to, buff, r);
+		if (file_to == -1 || w == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+			free(buff);
+			exit(99);
+		}
+		r = read(file_from, buff, BUFSIZE);
+	} while (r > 0);
+	free(buff);
+	close_file(file_from);
+	close_file(file_to);
 	return (0);
 }
 
 /**
- * exit_with_error - Prints an error message to standard error and exits with
- *                   the given status code.
- * @message: The error message to print.
- * @status: The status code to exit with.
+ * make_buff - Allocates for a buffer.
  *
- * Return: Nothing.
+ * @file: The file to allocate for the buffer.
+ *
+ * Return: A pointer to the allocated buffer.
  */
-void exit_with_error(char *message, int status)
+char *make_buff(char *file)
 {
-	dprintf(STDERR_FILENO, "%s\n", message);
-	exit(status);
+	char *buff;
+
+	buff = malloc(sizeof(char) * BUFSIZE);
+	if (!buff)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file);
+		exit(99);
+	}
+	return (buff);
 }
 
 /**
- * cp_file - Copies the contents of one file to another.
- * @src_fd: The file descriptor for the source file.
- * @dest_file: The path to the destination file.
+ * close_file - close the file.
  *
- * Return: Nothing.
+ * @f: the file to be closed.
  */
-void cp_file(int src_fd, char *dest_file)
+void close_file(int f)
 {
-	char buffer[BUFSIZE];
-	int dest_fd;
-	ssize_t num_read, num_written;
+	int c;
 
-	dest_fd = open(dest_file, O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (dest_fd == -1)
-		exit_with_error("Error: Can't write to file", 99);
-	while ((num_read = read(src_fd, buffer, BUFSIZE)) > 0)
+	c = close(f);
+	if (c == -1)
 	{
-		num_written = write(dest_fd, buffer, num_read);
-		if (num_written == -1)
-			exit_with_error("Error: Can't write to file", 99);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", f);
+		exit(100);
 	}
-	if (num_read == -1)
-		exit_with_error("Error: Can't read from file", 98);
-	if (close(src_fd) == -1)
-		exit_with_error("Error: Can't close file descriptor", 100);
-	if (close(dest_fd) == -1)
-		exit_with_error("Error: Can't close file descriptor", 100);
 }
